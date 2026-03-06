@@ -1,5 +1,5 @@
 {
-  "name": "admin",
+  "name": "vercel-supabase",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^4.1.6",
+    "@supabase/supabase-js": "^2.98.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "graphql": "^16.13.1",
