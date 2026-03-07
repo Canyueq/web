@@ -1,23 +1,16 @@
 import AsideLayout from "@/components/layout/AsideLayout";
 import HeaderLayout from "@/components/layout/HeaderLayout";
-import {
-  Sidebar,
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
 
 export default function MainLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <SidebarProvider>
-      <div className="flex h-screen flex-col"></div>
-      <HeaderLayout className={"shrink-0"} />
+    <div>
+      <HeaderLayout className="flex items-center justify-center m-10 gap-10" />
       <div className="flex">
-        <Sidebar></Sidebar>
+        <AsideLayout className="w-1/5" />
         <div className="w-4/5">{children}</div>
       </div>
-    </SidebarProvider>
+    </div>
   );
 }

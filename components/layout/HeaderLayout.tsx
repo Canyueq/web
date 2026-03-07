@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function HeaderLayout({
   className,
-}: Readonly<{ className: string }>) {
+}: Readonly<{ className?: string }>) {
   return (
     <header className={className}>
       <h1>Next.js</h1>
@@ -19,6 +19,7 @@ export default function HeaderLayout({
       <Link href="/login" className="border-red-600">
         博客
       </Link>
+      <Link href="/test">测试module</Link>
       <Link href="http://www.reactjs.cn">React</Link>
       <Link href="https://www.tailwindcss.cn/">TailwindCSS</Link>
       <Link href="https://www.shadcn-ui.cn/" className="border-red-600">

@@ -1,22 +1,78 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { supabase } from "@/supabase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import { useForm } from "react-hook-form";
+function InputField({ label, field }: Readonly<{ label: string }>) {
+  return (
+    <FormItem className="flex">
+      <FormLabel className="whitespace-nowrap">{label}</FormLabel>
+      <FormControl>
+        <Input placeholder={`请输入账号${label}`} {...field} className="w-60" />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  );
+}
 export default function Login() {
+  const form = useForm({
+    defaultValues: { username: "", password: "" },
+  });
   const router = useRouter();
-  const handleClick = () => {
-    router.push("/");
+  const onSubmit = async (values: { username: string; password: string }) => {
+    console.log("提交的数据", values);
+    await supabase.auth.signInWithPassword(values).then((res) => {
+      console.log("登录结果", res);
+      router.push("/");
+    });
   };
   return (
-    <div className="relative min-h-screen">
-      <div className="absolute top-30 left-1/2 -translate-x-1/2-translate-y-1/2 w-100 h-100 shadow">
-        <div>登录</div>
-        <Input placeholder="请输入账号" />
-        <Input placeholder="请输入密码" />
-        <Button onClick={handleClick}>登录</Button>
-        <Link href={"/signup"}>signup</Link>
+    <div className="absolute top-30 left-1/2 -translate-x-1/2-translate-y-1/2 w-100 h-100 shadow">
+      <div className="m-20">
+        登录
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <InputField label={"username"} field={field} />
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="flex">
+                  <FormLabel className="whitespace-nowrap">密码</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="请输入密码"
+                      {...field}
+                      className="w-60"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="flex">
+              登录
+            </Button>
+            <Link href={"/signup"}>signup</Link>
+          </form>
+        </Form>
       </div>
     </div>
   );
