@@ -14,23 +14,24 @@ import { supabase } from "@/supabase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-function InputField({ label, field }: Readonly<{ label: string }>) {
-  return (
+
+function useInputField({ label }: Readonly<{ label: string }>) {
+  return ({ field }) => {
     <FormItem className="flex">
       <FormLabel className="whitespace-nowrap">{label}</FormLabel>
       <FormControl>
         <Input placeholder={`请输入账号${label}`} {...field} className="w-60" />
       </FormControl>
       <FormMessage />
-    </FormItem>
-  );
+    </FormItem>;
+  };
 }
 export default function Login() {
   const form = useForm({
-    defaultValues: { username: "", password: "" },
+    defaultValues: { email: "", password: "" },
   });
   const router = useRouter();
-  const onSubmit = async (values: { username: string; password: string }) => {
+  const onSubmit = async (values: { email: string; password: string }) => {
     console.log("提交的数据", values);
     await supabase.auth.signInWithPassword(values).then((res) => {
       console.log("登录结果", res);
@@ -45,10 +46,8 @@ export default function Login() {
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="username"
-              render={({ field }) => (
-                <InputField label={"username"} field={field} />
-              )}
+              name="email"
+              render={useInputField("email")}
             />
             <FormField
               control={form.control}
