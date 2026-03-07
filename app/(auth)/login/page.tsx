@@ -15,17 +15,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-function useInputField({ label, field }) {
-  return ({ field }) => {
-    <FormItem className="flex">
-      <FormLabel className="whitespace-nowrap">{label}</FormLabel>
-      <FormControl>
-        <Input placeholder={`请输入账号${label}`} {...field} className="w-60" />
-      </FormControl>
-      <FormMessage />
-    </FormItem>;
-  };
-}
 export default function Login() {
   const form = useForm({
     defaultValues: { email: "", password: "" },
@@ -47,7 +36,19 @@ export default function Login() {
             <FormField
               control={form.control}
               name="email"
-              render={useInputField("email")}
+              render={({ field }) => (
+                <FormItem className="flex">
+                  <FormLabel className="whitespace-nowrap">账号</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="请输入账号"
+                      {...field}
+                      className="w-60"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
             <FormField
               control={form.control}
