@@ -15,7 +15,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-function useInputField({ label }: Readonly<{ label: string }>) {
+function useInputField({ label, field }: Readonly<{ label: string }>) {
   return ({ field }) => {
     <FormItem className="flex">
       <FormLabel className="whitespace-nowrap">{label}</FormLabel>
