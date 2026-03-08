@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { supabase } from "@/supabase";
+import { logIn } from "@/lib/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ export default function Login() {
   const router = useRouter();
   const onSubmit = async (values: { email: string; password: string }) => {
     console.log("提交的数据", values);
-    await supabase.auth.signInWithPassword(values).then((res) => {
+    await logIn(values).then((res) => {
       console.log("登录结果", res);
       router.push("/");
     });
