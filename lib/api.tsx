@@ -66,27 +66,27 @@ export const getCurrentUser = async () => {
   return user;
 };
 
-// 5. 监听用户登录状态变化（实时更新）
-export const listenToAuthChanges = async () => {
-  supabase.auth.onAuthStateChange((event, session) => {
-    switch (event) {
-      case "SIGNED_IN":
-        console.log("用户已登录：", session.user);
-        break;
-      case "SIGNED_OUT":
-        console.log("用户已退出登录");
-        break;
-      case "PASSWORD_RECOVERY":
-        console.log("用户触发了密码重置");
-        break;
-      case "TOKEN_REFRESHED":
-        console.log("令牌已自动刷新");
-        break;
-      default:
-        console.log("鉴权状态变化：", event);
-    }
-  });
-};
+// // 5. 监听用户登录状态变化（实时更新）
+// export const listenToAuthChanges = async () => {
+//   supabase.auth.onAuthStateChange((event, session) => {
+//     switch (event) {
+//       case "SIGNED_IN":
+//         console.log("用户已登录：", session.user);
+//         break;
+//       case "SIGNED_OUT":
+//         console.log("用户已退出登录");
+//         break;
+//       case "PASSWORD_RECOVERY":
+//         console.log("用户触发了密码重置");
+//         break;
+//       case "TOKEN_REFRESHED":
+//         console.log("令牌已自动刷新");
+//         break;
+//       default:
+//         console.log("鉴权状态变化：", event);
+//     }
+//   });
+// };
 
 //6. 获取邮箱验证码
 export const resendConfirmationEmail = async (email: string) => {
